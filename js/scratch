@@ -1,0 +1,157 @@
+$(document).ready(function(finish) {
+
+  var stored = "";
+  var current = "";
+  var operator = "";
+
+  $(".number").click(function() {
+    input = $(this).attr("value");
+    current += input;
+    $('.calcScreen').html(current);
+    console.log('Number');
+    console.log('stored: ', stored);
+    console.log('current: ', current);
+    console.log('operator: ', operator);
+  });
+
+  $(".operator").click(function() {
+    opVal = $(this).attr("value");
+    if (current === "" && stored === "" && opVal == "-") {current += opVal;}
+    else {
+      output = (stored) + operator + current;
+      output = eval(output);
+      output = output.toFixed(6);
+      output = Number(output);
+      stored = output;
+      current = "";
+      operator ="";
+      $('.calcScreen').html(output);
+    switch (opVal) {
+      case "x":
+        operator = "*";
+        break;
+      case "÷":
+        operator = "/";
+        break;
+      default:
+        operator = $(this).attr("value");
+    }}
+    console.log('Operator');
+    console.log('stored: ', stored);
+    console.log('current: ', current);
+    console.log('operator: ', operator);
+  });
+
+  $(".dec_place").click(function() {
+    hasDec = current.indexOf(".");
+    if (hasDec == -1) {
+      current += ".";
+    }
+  });
+
+  $(".allClear").click(function() {
+    stored = "";
+    current = "";
+    operator = "";
+    $('.calcScreen').html('');
+  });
+
+  $(".clearLast").click(function() {
+    current = "";
+  });
+
+  $(".percent").click(function() {
+    if (stored === "") {
+      $('.calcScreen').html('Error');
+      stored = "";
+      current = "";
+      operator = "";
+    } else {
+      current = (stored / 100) * current;
+      console.log('stored: ', stored);
+      console.log('current: ', current);
+      console.log('operator: ', operator);
+      console.log('updated');
+    }
+  });
+
+  $(".equals").click(function() {
+    output = (stored) + operator + current;
+    output = eval(output);
+    output = output.toFixed(6);
+    output = Number(output);
+    stored = output;
+    current = "";
+    operator ="";
+    $('.calcScreen').html(output);
+    console.log('stored: ', stored);
+    console.log('current: ', current);
+    console.log('operator: ', operator);
+  });
+
+  window.onerror = function() {
+    $('.calcScreen').html('Error');
+    stored = "";
+    current = "";
+    operator = "";
+  };
+
+});
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+  </head>
+  <body>
+
+<div class="calc_container">
+
+  <div class="calcScreen"> </div>
+<div class="line1">
+<input class="keypad allClear" type="button" value="AC">
+<input class="keypad clearLast" type="button" value="CE">
+<input class="keypad percent" type="button" value="%">
+<input class="keypad operator" type="button" value="÷">
+</div>
+<div class="line2">
+<input class="keypad number" type="button" value="7">
+<input class="keypad number" type="button" value="8">
+<input class="keypad number" type="button" value="9">
+<input class="keypad operator" type="button" value="x">
+</div>
+<div class="line3">
+<input class="keypad number" type="button" value="4">
+<input class="keypad number" type="button" value="5">
+<input class="keypad number" type="button" value="6">
+<input class="keypad operator" type="button" value="-">
+</div>
+<div class="bottom_section">
+<div class="last_2_cont">
+<div class="line4">
+<input class="keypad number" type="button" value="1">
+<input class="keypad number" type="button" value="2">
+<input class="keypad number" type="button" value="3">
+</div>
+<div class="line5">
+<input class="keypad number" type="button" value="0">
+<input class="keypad dec_place" type="button" value=".">
+<input class="keypad equals" type="button" value="=">
+</div>
+</div>
+<div class="plus_button">
+  <input class="keypad operator keypad_button_plus" type="button" value="+">
+</div>
+</div>
+</div>
+</body>
+</html>
