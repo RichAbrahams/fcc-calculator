@@ -4,11 +4,15 @@ $(document).ready(function(finish) {
   var current = "";
   var operator = "";
 
+// number click controller
+
   $(".number").click(function() {
     input = $(this).attr("value");
     current += input;
     $('.calcScreen').html(current);
   });
+
+// operator + - ÷ * controller
 
   $(".operator").click(function() {
     opVal = $(this).attr("value");
@@ -36,12 +40,16 @@ $(document).ready(function(finish) {
     }
   });
 
+// decimal place controller
+
   $(".dec_place").click(function() {
     hasDec = current.indexOf(".");
     if (hasDec == -1) {
       current += ".";
     }
   });
+
+// AC button controller
 
   $(".allClear").click(function() {
     stored = "";
@@ -50,9 +58,13 @@ $(document).ready(function(finish) {
     $('.calcScreen').html('');
   });
 
+// CE button controller
+
   $(".clearLast").click(function() {
     current = "";
   });
+
+// percent button controller
 
   $(".percent").click(function() {
     if (stored === "") {
@@ -65,6 +77,8 @@ $(document).ready(function(finish) {
     }
   });
 
+// equals button controller
+
   $(".equals").click(function() {
     output = (stored) + operator + current;
     output = eval(output);
@@ -75,6 +89,8 @@ $(document).ready(function(finish) {
     operator = "";
     $('.calcScreen').html(output);
   });
+
+// error fallback funtion
 
   window.onerror = function() {
     $('.calcScreen').html('Error');
